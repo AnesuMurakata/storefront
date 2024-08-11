@@ -1,0 +1,14 @@
+@import '../../globalStyles/mixins.scss';
+
+.products-container {
+  width: 75%;
+  padding-top: 45px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 22% 22% 22% 22%;
+  column-gap: 4%;
+  row-gap: 15px;
+
+  &__product-item {
+  }
+}
