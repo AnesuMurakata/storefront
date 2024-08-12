@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux';
 
+// COMPONENTS
+import { cartActions } from '../../redux/cartSlice';
+import { searchActions } from '../../redux/searchSlice';
+
 // STYLES
 import './products.scss';
 
 // PACKAGES
 import axios from 'axios';
-import { cartActions } from '../../redux/cartSlice';
-import { searchActions } from '../../redux/searchSlice';
+import { useNavigate } from 'react-router-dom';
 
 interface IProduct {
+  id: number;
   title: string;
   image: string;
   price: number;
@@ -18,6 +22,7 @@ interface IProduct {
 }
 
 const Products = () => {
+  const navigate = useNavigate();
   const [products, setProducts] = useState<IProduct[]>([]);
   const [productsToDisplay, setProductsToDisplay] = useState<IProduct[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
@@ -87,6 +92,7 @@ const Products = () => {
           return (
             <div
               key={index}
+              onClick={() => navigate(`/product/${product.id}`)}
               className="products-container__products-cards__product-item"
             >
               <div className="products-container__products-cards__product-item__image-container">

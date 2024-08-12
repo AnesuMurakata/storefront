@@ -11,6 +11,7 @@ import search from '../../assets/components/navBar/search.png';
 import cart from '../../assets/components/navBar/shopping-bag.png';
 
 interface IProduct {
+  id: number;
   title: string;
   image: string;
   price: number;
@@ -80,6 +81,7 @@ const NavBar = () => {
               return (
                 <p
                   key={index}
+                  onMouseDown={() => navigate(`/product/${product.id}`)}
                   className="nav-bar-container__search-bar__results__result-item"
                 >
                   {product.title}
