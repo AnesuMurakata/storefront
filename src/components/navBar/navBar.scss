@@ -49,21 +49,32 @@
     }
   }
 
-  &__profile,
   h3 {
     width: 20%;
   }
 
   &__profile {
+    width: 86px;
+    height: 42px;
+    padding: 12px;
+    padding-right: 6px;
+    border-radius: 10px;
     @include flexRowEnd;
+    align-items: center;
+    background-color: #1c8644;
 
     img {
-      height: 42px;
-      margin: 0 12px;
+      height: 30px;
     }
 
-    img:hover {
-      cursor: pointer;
+    p {
+      color: #fff;
+      margin: 0;
+      font-weight: bold;
     }
+  }
+
+  &__profile:hover {
+    cursor: pointer;
   }
 }
