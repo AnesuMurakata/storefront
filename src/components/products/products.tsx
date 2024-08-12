@@ -18,7 +18,9 @@ interface IProduct {
 
 const Products = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
+  const [productsToDisplay, setProductsToDisplay] = useState<IProduct[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string>('All');
 
   const dispatch = useDispatch();
   const cartProducts = useSelector((state: RootState) => state.cart.products);
@@ -28,6 +30,7 @@ const Products = () => {
     axios({ method: 'GET', url: 'https://fakestoreapi.com/products' }).then(
       (response) => {
         setProducts(response.data);
+        setProductsToDisplay(response.data);
 
         response.data.map((product: IProduct) => {
           if (!tempList.includes(product.category)) {
@@ -45,6 +48,18 @@ const Products = () => {
     dispatch(cartActions.setProducts(temp));
   };
 
+  const filterCategory = (category: string) => {
+    if (category === 'All') {
+      setProductsToDisplay(products);
+    } else {
+      const filteredProducts = products.filter(
+        (product) => product.category === category,
+      );
+      setProductsToDisplay(filteredProducts);
+    }
+    setActiveCategory(category);
+  };
+
   return (
     <div className="products-container">
       <div className="products-container__products-filter">
@@ -52,7 +67,13 @@ const Products = () => {
           return (
             <div
               key={index}
-              className="products-container__products-filter__category"
+              className={[
+                'products-container__products-filter__category',
+                activeCategory == category
+                  ? 'products-container__products-filter__category--active'
+                  : '',
+              ].join(' ')}
+              onClick={() => filterCategory(category)}
             >
               {category}
             </div>
@@ -60,7 +81,7 @@ const Products = () => {
         })}
       </div>
       <div className="products-container__products-cards">
-        {products.map((product, index) => {
+        {productsToDisplay.map((product, index) => {
           return (
             <div
               key={index}

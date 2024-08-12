@@ -19,6 +19,12 @@
       text-align: center;
       border-right: 1px solid grey;
       text-transform: capitalize;
+
+      &--active {
+        color: #fff;
+        font-weight: 800;
+        background-color: #0b79bf;
+      }
     }
 
     &__category:last-child {
@@ -27,7 +33,8 @@
 
     &__category:hover {
       cursor: pointer;
-      background-color: darkgrey;
+      color: #fff;
+      background-color: #0b79bf;
     }
   }
 
