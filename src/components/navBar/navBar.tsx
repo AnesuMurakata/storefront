@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // STYLES
 import './navBar.scss';
@@ -10,11 +11,13 @@ import likes from '../../assets/components/navBar/likes.png';
 import cart from '../../assets/components/navBar/shopping-cart.png';
 
 const NavBar = () => {
+  const navigate = useNavigate();
+
   const [displayResultsBar, setDisplayResultsBar] = useState(false);
 
   return (
     <div className="nav-bar-container">
-      <h3>ClicknPay</h3>
+      <h1>ClicknPay</h1>
       <div className="nav-bar-container__search-bar">
         <div className="nav-bar-container__search-bar__elements">
           <img className="h-7" src={search} alt="search" />
@@ -35,7 +38,7 @@ const NavBar = () => {
       <div className="nav-bar-container__profile">
         <img src={profile} alt="Account" />
         <img src={likes} alt="Wish List" />
-        <img src={cart} alt="Shopping Cart" />
+        <img src={cart} alt="Shopping Cart" onClick={() => navigate('/cart')} />
       </div>
     </div>
   );

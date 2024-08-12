@@ -7,7 +7,7 @@
   @include flexRowSpaceBetween;
   align-items: center;
 
-  h3 {
+  h1 {
     margin: 0;
   }
 
@@ -60,6 +60,10 @@
     img {
       height: 42px;
       margin: 0 12px;
+    }
+
+    img:hover {
+      cursor: pointer;
     }
   }
 }
