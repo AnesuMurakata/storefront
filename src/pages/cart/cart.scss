@@ -6,6 +6,10 @@
     margin: auto;
     padding-top: 40px;
 
+    &__headers {
+      @include flexRowSpaceBetween;
+    }
+
     &__cart-items-container {
       &__cart-item {
         padding: 20px;
