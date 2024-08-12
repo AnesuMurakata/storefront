@@ -16,15 +16,24 @@ const Cart = () => {
       <NavBar />
       <div className="cart-container__elements">
         <h3>Shopping Cart</h3>
-        <div className="cart-container__cart-items-container">
+        <div className="cart-container__elements__cart-items-container">
           {cartProducts.map((product, index) => {
             return (
               <div
                 key={index}
-                className="cart-container__cart-items-container__cart-item"
+                className="cart-container__elements__cart-items-container__cart-item"
               >
-                <p>{product.title}</p>
-                <p>{product.price}</p>
+                <div className="cart-container__elements__cart-items-container__cart-item__image-container">
+                  <img src={product.image} alt="product" />
+                </div>
+                <div>
+                  <p className="cart-container__elements__cart-items-container__cart-item__title">
+                    {product.title}
+                  </p>
+                  <p className="cart-container__elements__cart-items-container__cart-item__price">
+                    ${product.price}
+                  </p>
+                </div>
               </div>
             );
           })}

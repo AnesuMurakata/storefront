@@ -27,7 +27,6 @@ const Products = () => {
     const tempList: string[] = ['All'];
     axios({ method: 'GET', url: 'https://fakestoreapi.com/products' }).then(
       (response) => {
-        console.log(response.data);
         setProducts(response.data);
 
         response.data.map((product: IProduct) => {
