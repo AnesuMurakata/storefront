@@ -10,12 +10,44 @@ import './navBar.scss';
 import search from '../../assets/components/navBar/search.png';
 import cart from '../../assets/components/navBar/shopping-bag.png';
 
+interface IProduct {
+  title: string;
+  image: string;
+  price: number;
+  category: string;
+  description: string;
+}
+
 const NavBar = () => {
   const navigate = useNavigate();
 
-  const [displayResultsBar, setDisplayResultsBar] = useState(false);
+  const [displayResultsBar, setDisplayResultsBar] = useState<boolean>(false);
+  const [searchResults, setSearchResults] = useState<IProduct[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>('');
 
   const cartProducts = useSelector((state: RootState) => state.cart.products);
+  const searchProducts = useSelector(
+    (state: RootState) => state.search.products,
+  );
+
+  const handleSearch = (searchTerm: string) => {
+    if (searchTerm.length > 0) {
+      setSearchTerm(searchTerm);
+      const results = searchProducts.filter((product) => {
+        if (
+          product.title.includes(searchTerm) ||
+          product.description.includes(searchTerm)
+        ) {
+          return product;
+        }
+      });
+      setSearchResults(results);
+    } else {
+      setSearchTerm(searchTerm);
+      // reset results if search term is empty string
+      setSearchResults([]);
+    }
+  };
 
   return (
     <div className="nav-bar-container">
@@ -26,14 +58,34 @@ const NavBar = () => {
           <input
             className=""
             type="text"
+            onChange={(e) => handleSearch(e.target.value)}
             onBlur={() => setDisplayResultsBar((prev) => !prev)}
             onFocus={() => setDisplayResultsBar((prev) => !prev)}
-            placeholder="Search"
+            placeholder="Search by name or description"
           />
         </div>
         {displayResultsBar && (
           <div className="nav-bar-container__search-bar__results">
-            <p>Awaiting search parameters</p>
+            {searchTerm.length == 0 && (
+              <p className="nav-bar-container__search-bar__results__message">
+                Awaiting search parameters...
+              </p>
+            )}
+            {searchTerm.length > 0 && searchResults.length == 0 && (
+              <p className="nav-bar-container__search-bar__results__message">
+                No results found...
+              </p>
+            )}
+            {searchResults.slice(0, 5).map((product, index) => {
+              return (
+                <p
+                  key={index}
+                  className="nav-bar-container__search-bar__results__result-item"
+                >
+                  {product.title}
+                </p>
+              );
+            })}
           </div>
         )}
       </div>

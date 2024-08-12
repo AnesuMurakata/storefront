@@ -8,6 +8,7 @@ import './products.scss';
 // PACKAGES
 import axios from 'axios';
 import { cartActions } from '../../redux/cartSlice';
+import { searchActions } from '../../redux/searchSlice';
 
 interface IProduct {
   title: string;
@@ -31,6 +32,7 @@ const Products = () => {
       (response) => {
         setProducts(response.data);
         setProductsToDisplay(response.data);
+        dispatch(searchActions.setSearchProducts(response.data));
 
         response.data.map((product: IProduct) => {
           if (!tempList.includes(product.category)) {
