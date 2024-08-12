@@ -1,0 +1,44 @@
+@import '../../globalStyles/mixins.scss';
+
+.cart-container {
+  &__elements {
+    width: 85%;
+    margin: auto;
+    padding-top: 40px;
+
+    &__headers {
+      @include flexRowSpaceBetween;
+    }
+
+    &__cart-items-container {
+      &__cart-item {
+        padding: 20px;
+        @include flexRow;
+        margin-bottom: 30px;
+        background-color: #fff;
+
+        &__image-container {
+          margin-right: 30px;
+          img {
+            max-height: 100px;
+          }
+        }
+
+        &__title {
+          font-size: 20px;
+        }
+
+        &__price {
+          font-weight: bold;
+        }
+      }
+
+      &__cart-item:hover {
+        cursor: pointer;
+        box-shadow:
+          0 4px 8px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+    }
+  }
+}
