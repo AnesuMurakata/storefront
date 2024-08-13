@@ -66,16 +66,18 @@ const Product = () => {
             <img src={product?.image} alt="photo" />
           </div>
           <div className="product-page-container__elements__product-details">
-            <h3>{product?.title}</h3>
-            <p className="product-page-container__elements__product-details__description">
-              {product?.description}
-            </p>
-            <div className="product-page-container__elements__product-details__rating-row">
-              <img src={star} alt="rating" />
-              <p>{product?.rating?.rate}</p>
-              <p className="product-page-container__elements__product-details__rating-row__reviews">
-                {product?.rating?.count} Reviews
+            <div className="product-page-container__elements__product-details__top-row">
+              <h3>{product?.title}</h3>
+              <p className="product-page-container__elements__product-details__description">
+                {product?.description}
               </p>
+              <div className="product-page-container__elements__product-details__rating-row">
+                <img src={star} alt="rating" />
+                <p>{product?.rating?.rate}</p>
+                <p className="product-page-container__elements__product-details__rating-row__reviews">
+                  {product?.rating?.count} Reviews
+                </p>
+              </div>
             </div>
             <div className="product-page-container__elements__product-details__bottom-row">
               <p>${product?.price}</p>
