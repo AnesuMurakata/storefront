@@ -9,24 +9,24 @@ interface IProduct {
   description: string;
 }
 
-interface SearchState {
+interface ProductState {
   products: IProduct[];
 }
 
-const initialState: SearchState = {
+const initialState: ProductState = {
   products: [],
 };
 
-const searchSlice = createSlice({
-  name: 'search',
+const productSlice = createSlice({
+  name: 'product',
   initialState,
   reducers: {
-    setSearchProducts: (state, action: PayloadAction<IProduct[]>) => {
+    setProducts: (state, action: PayloadAction<IProduct[]>) => {
       state.products = action.payload;
     },
   },
 });
 
-export const searchActions = searchSlice.actions;
+export const productActions = productSlice.actions;
 
-export default searchSlice;
+export default productSlice;

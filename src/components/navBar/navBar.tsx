@@ -1,14 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux';
 
 // STYLES
 import './navBar.scss';
 
+// PACKAGES
+import axios from 'axios';
+
 // ASSETS
 import search from '../../assets/components/navBar/search.png';
 import cart from '../../assets/components/navBar/shopping-bag.png';
+import { productActions } from '../../redux/productSlice';
 
 interface IProduct {
   id: number;
@@ -25,11 +29,19 @@ const NavBar = () => {
   const [displayResultsBar, setDisplayResultsBar] = useState<boolean>(false);
   const [searchResults, setSearchResults] = useState<IProduct[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
+  const [searchProducts, setSearchProducts] = useState<IProduct[]>([]);
 
+  const dispatch = useDispatch();
   const cartProducts = useSelector((state: RootState) => state.cart.products);
-  const searchProducts = useSelector(
-    (state: RootState) => state.search.products,
-  );
+
+  useEffect(() => {
+    axios({ method: 'GET', url: 'https://fakestoreapi.com/products' }).then(
+      (response) => {
+        setSearchProducts(response.data);
+        dispatch(productActions.setProducts(response.data));
+      },
+    );
+  }, []);
 
   const handleSearch = (searchTerm: string) => {
     if (searchTerm.length > 0) {

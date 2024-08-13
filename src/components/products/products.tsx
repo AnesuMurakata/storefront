@@ -4,7 +4,6 @@ import { RootState } from '../../redux';
 
 // COMPONENTS
 import { cartActions } from '../../redux/cartSlice';
-import { searchActions } from '../../redux/searchSlice';
 
 // STYLES
 import './products.scss';
@@ -33,24 +32,42 @@ const Products = () => {
 
   const dispatch = useDispatch();
   const cartProducts = useSelector((state: RootState) => state.cart.products);
+  const cachedProducts = useSelector(
+    (state: RootState) => state.product.products,
+  );
 
   useEffect(() => {
     const temporaryList: string[] = ['All'];
-    axios({ method: 'GET', url: 'https://fakestoreapi.com/products' }).then(
-      (response) => {
-        setProducts(response.data);
-        setProductsToDisplay(response.data);
-        dispatch(searchActions.setSearchProducts(response.data));
 
-        response.data.map((product: IProduct) => {
-          if (!temporaryList.includes(product.category)) {
-            temporaryList.push(product.category);
-          }
-        });
-        setCategories(temporaryList);
-        setFetchingData(false);
-      },
-    );
+    // Check if redux store has data
+    if (cachedProducts.length > 0) {
+      setProducts(cachedProducts);
+      setProductsToDisplay(cachedProducts);
+
+      cachedProducts.map((product: IProduct) => {
+        if (!temporaryList.includes(product.category)) {
+          temporaryList.push(product.category);
+        }
+      });
+      setCategories(temporaryList);
+      setFetchingData(false);
+    } else {
+      // Only fetch products if redux store was empty
+      axios({ method: 'GET', url: 'https://fakestoreapi.com/products' }).then(
+        (response) => {
+          setProducts(response.data);
+          setProductsToDisplay(response.data);
+
+          response.data.map((product: IProduct) => {
+            if (!temporaryList.includes(product.category)) {
+              temporaryList.push(product.category);
+            }
+          });
+          setCategories(temporaryList);
+          setFetchingData(false);
+        },
+      );
+    }
   }, []);
 
   const addToCart = (product: IProduct) => {
