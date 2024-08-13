@@ -31,6 +31,7 @@ interface IProduct {
 
 const Product = () => {
   const [product, setProduct] = useState<IProduct>();
+  const [fetchingData, setFetchingData] = useState<boolean>(true);
 
   const dispatch = useDispatch();
   const cartProducts = useSelector((state: RootState) => state.cart.products);
@@ -44,8 +45,8 @@ const Product = () => {
       method: 'GET',
       url: 'https://fakestoreapi.com/products/' + id,
     }).then((response) => {
-      console.log(response.data);
       setProduct(response.data);
+      setFetchingData(false);
     });
   }, []);
 
@@ -57,28 +58,32 @@ const Product = () => {
 
   return (
     <div className="product-page-container">
-      <div className="product-page-container__elements">
-        <div className="product-page-container__elements__product-image">
-          <img src={product?.image} alt="photo" />
-        </div>
-        <div className="product-page-container__elements__product-details">
-          <h3>{product?.title}</h3>
-          <p className="product-page-container__elements__product-details__description">
-            {product?.description}
-          </p>
-          <div className="product-page-container__elements__product-details__rating-row">
-            <img src={star} alt="rating" />
-            <p>{product?.rating?.rate}</p>
-            <p className="product-page-container__elements__product-details__rating-row__reviews">
-              {product?.rating?.count} Reviews
+      {fetchingData ? (
+        <div className="product-page-container__elements skeleton skeleton__card"></div>
+      ) : (
+        <div className="product-page-container__elements">
+          <div className="product-page-container__elements__product-image">
+            <img src={product?.image} alt="photo" />
+          </div>
+          <div className="product-page-container__elements__product-details">
+            <h3>{product?.title}</h3>
+            <p className="product-page-container__elements__product-details__description">
+              {product?.description}
             </p>
-          </div>
-          <div className="product-page-container__elements__product-details__bottom-row">
-            <p>${product?.price}</p>
-            <button onClick={() => addToCart(product!)}>Add to Cart</button>
+            <div className="product-page-container__elements__product-details__rating-row">
+              <img src={star} alt="rating" />
+              <p>{product?.rating?.rate}</p>
+              <p className="product-page-container__elements__product-details__rating-row__reviews">
+                {product?.rating?.count} Reviews
+              </p>
+            </div>
+            <div className="product-page-container__elements__product-details__bottom-row">
+              <p>${product?.price}</p>
+              <button onClick={() => addToCart(product!)}>Add to Cart</button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

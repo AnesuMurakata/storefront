@@ -5,6 +5,23 @@
   width: 85%;
   margin: auto;
 
+  .skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+
+    &__card {
+      height: 528px;
+    }
+  }
+
+  @keyframes skeleton-loading {
+    0% {
+      background-color: hsl(200, 20%, 80%);
+    }
+    100% {
+      background-color: hsl(200, 20%, 95%);
+    }
+  }
+
   &__elements {
     min-height: 400px;
     padding: 20px;
