@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux';
+import { useParams } from 'react-router-dom';
 
 // COMPONENTS
 import { cartActions } from '../../redux/cartSlice';
@@ -36,11 +37,13 @@ const Product = () => {
   const dispatch = useDispatch();
   const cartProducts = useSelector((state: RootState) => state.cart.products);
 
-  useEffect(() => {
-    const path = window.location.pathname;
-    const pathArray = path.split('/');
-    const id = pathArray[pathArray.length - 1];
+  const path = window.location.pathname;
+  const pathArray = path.split('/');
+  const id = pathArray[pathArray.length - 1];
 
+  const { productId } = useParams();
+
+  useEffect(() => {
     axios({
       method: 'GET',
       url: 'https://fakestoreapi.com/products/' + id,
@@ -48,7 +51,7 @@ const Product = () => {
       setProduct(response.data);
       setFetchingData(false);
     });
-  }, []);
+  }, [id, productId]);
 
   const addToCart = (product: IProduct) => {
     const previousProducts = cartProducts;
