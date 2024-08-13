@@ -52,8 +52,8 @@ const Product = () => {
 
   const addToCart = (product: IProduct) => {
     const previousProducts = cartProducts;
-    const temp = [...previousProducts, product];
-    dispatch(cartActions.setProducts(temp));
+    const temporary = [...previousProducts, product];
+    dispatch(cartActions.setProducts(temporary));
   };
 
   return (

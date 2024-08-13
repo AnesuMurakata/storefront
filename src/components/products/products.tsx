@@ -35,7 +35,7 @@ const Products = () => {
   const cartProducts = useSelector((state: RootState) => state.cart.products);
 
   useEffect(() => {
-    const tempList: string[] = ['All'];
+    const temporaryList: string[] = ['All'];
     axios({ method: 'GET', url: 'https://fakestoreapi.com/products' }).then(
       (response) => {
         setProducts(response.data);
@@ -43,11 +43,11 @@ const Products = () => {
         dispatch(searchActions.setSearchProducts(response.data));
 
         response.data.map((product: IProduct) => {
-          if (!tempList.includes(product.category)) {
-            tempList.push(product.category);
+          if (!temporaryList.includes(product.category)) {
+            temporaryList.push(product.category);
           }
         });
-        setCategories(tempList);
+        setCategories(temporaryList);
         setFetchingData(false);
       },
     );
@@ -55,8 +55,8 @@ const Products = () => {
 
   const addToCart = (product: IProduct) => {
     const previousProducts = cartProducts;
-    const temp = [...previousProducts, product];
-    dispatch(cartActions.setProducts(temp));
+    const temporary = [...previousProducts, product];
+    dispatch(cartActions.setProducts(temporary));
   };
 
   const filterCategory = (category: string) => {

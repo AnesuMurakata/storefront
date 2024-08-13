@@ -6,7 +6,7 @@ import { RootState } from '../../redux';
 import './cart.scss';
 
 const Cart = () => {
-  const [shoppingCartTotal, setShoppingCartTotal] = useState(0);
+  const [shoppingCartTotal, setShoppingCartTotal] = useState<number>(0);
   const cartProducts = useSelector((state: RootState) => state.cart.products);
 
   useEffect(() => {
