@@ -1,6 +1,8 @@
 @import '../../globalStyles/mixins.scss';
 
 .cart-container {
+  padding-top: 86px;
+
   &__elements {
     width: 85%;
     margin: auto;

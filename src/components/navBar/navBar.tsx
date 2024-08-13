@@ -57,7 +57,6 @@ const NavBar = () => {
         <div className="nav-bar-container__search-bar__elements">
           <img className="h-7" src={search} alt="search" />
           <input
-            className=""
             type="text"
             onChange={(e) => handleSearch(e.target.value)}
             onBlur={() => setDisplayResultsBar((prev) => !prev)}
