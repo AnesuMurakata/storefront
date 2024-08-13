@@ -5,9 +5,6 @@ import { RootState } from '../../redux';
 // STYLES
 import './cart.scss';
 
-// COMPONENTS
-import NavBar from '../../components/navBar/navBar';
-
 const Cart = () => {
   const [shoppingCartTotal, setShoppingCartTotal] = useState(0);
   const cartProducts = useSelector((state: RootState) => state.cart.products);
@@ -22,7 +19,6 @@ const Cart = () => {
 
   return (
     <div className="cart-container">
-      <NavBar />
       <div className="cart-container__elements">
         <div className="cart-container__elements__headers">
           <h3>Shopping Cart</h3>

@@ -11,6 +11,10 @@
     margin: 0;
   }
 
+  h1:hover {
+    cursor: pointer;
+  }
+
   &__search-bar {
     width: 40%;
     z-index: 12;

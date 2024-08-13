@@ -112,10 +112,12 @@ const Products = () => {
               return (
                 <div
                   key={index}
-                  onClick={() => navigate(`/product/${product.id}`)}
                   className="products-container__products-cards__product-item"
                 >
-                  <div className="products-container__products-cards__product-item__image-container">
+                  <div
+                    className="products-container__products-cards__product-item__image-container"
+                    onClick={() => navigate(`/product/${product.id}`)}
+                  >
                     <img src={product.image} alt="product" />
                   </div>
                   <p className="products-container__products-cards__product-item__title">

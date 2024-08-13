@@ -52,7 +52,7 @@ const NavBar = () => {
 
   return (
     <div className="nav-bar-container">
-      <h1>ClicknPay</h1>
+      <h1 onClick={() => navigate(`/`)}>Click n&#39; Pay</h1>
       <div className="nav-bar-container__search-bar">
         <div className="nav-bar-container__search-bar__elements">
           <img className="h-7" src={search} alt="search" />
